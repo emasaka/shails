@@ -1,0 +1,89 @@
+function exist_or_create() {
+    local file=$1
+    if [[ -e "$file" ]]; then
+        echo "      exists  $file"
+        return 1
+    else
+        echo "      create  $file"
+        return 0
+    fi
+}
+
+function copy_file_msg() {
+    local src=$1
+    local dst=$2
+    local line
+    local IFS=''
+    if exist_or_create "$dst"; then
+        while read line; do
+            echo "$line"
+        done < "$src" > "$dst"
+    fi
+}
+
+function expand_file_msg() {
+    local src=$1
+    local dst=$2
+    local line
+    local IFS=''
+    if exist_or_create "$dst"; then
+        while read line; do
+            eval echo "\"$line\""
+        done < "$src" > "$dst"
+    fi
+}
+
+function ln_s_msg() {
+    local src=$1
+    local dst=$2
+    if exist_or_create "$dst"; then
+        ln -s "$src" "$dst"
+    fi
+}
+
+function mkdir_msg() {
+    local dir=$1
+    if exist_or_create "$dir"; then
+        mkdir "$dir"
+    fi
+}
+
+project=$1
+SHAILS_DIR=$2
+
+SETUPSRC="${SHAILS_DIR}/SHailties/setup"
+
+mkdir "$project"
+cd "$project"
+
+copy_file_msg "${SETUPSRC}/skel/Makefile" Makefile
+
+mkdir_msg app
+
+mkdir_msg config
+mkdir_msg config/environments
+copy_file_msg "${SETUPSRC}/skel/config/database.sh" config/database.sh
+copy_file_msg "${SETUPSRC}/skel/config/environment.sh" config/environment.sh
+expand_file_msg "${SETUPSRC}/skel/config/routes.sh" config/routes.sh
+
+mkdir_msg public
+ln_s_msg "${SETUPSRC}/skel/public/dispatch.sh" public/dispatch.sh
+expand_file_msg "${SETUPSRC}/skel/public/.htaccess" public/.htaccess
+
+mkdir_msg vendor
+ln_s_msg "${SHAILS_DIR}/SHac" vendor/SHac
+ln_s_msg "${SHAILS_DIR}/SHailties" vendor/SHailties
+ln_s_msg "${SHAILS_DIR}/SHar" vendor/SHar
+ln_s_msg "${SHAILS_DIR}/SHas" vendor/SHas
+ln_s_msg "${SHAILS_DIR}/eBash" vendor/eBash
+
+mkdir_msg script
+ln_s_msg ../vendor/SHailties/console/console script/console
+ln_s_msg ../vendor/SHailties/generator/generate script/generate
+
+(
+    umask 0
+    mkdir_msg db
+    mkdir_msg log
+    mkdir_msg tmp
+)

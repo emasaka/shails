@@ -1,0 +1,2 @@
+#!/bin/bash
+exec bash --init-file vendor/SHailties/console/console.rc -i

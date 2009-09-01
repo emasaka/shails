@@ -1,0 +1,4 @@
+. vendor/SHailties/initializer.sh
+initializer.run
+PS1='console:\!> '
+HISTFILE=''

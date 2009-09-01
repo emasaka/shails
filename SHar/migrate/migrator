@@ -1,0 +1,6 @@
+#!/bin/bash
+for f in vendor/SHas/*.sh; do
+    . $f
+done
+. config/environment.sh
+. vendor/SHar/schema/create_table.sh

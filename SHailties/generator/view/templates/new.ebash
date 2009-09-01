@@ -1,0 +1,26 @@
+<html>
+<head>
+<title>New <%=model%></title>
+</head>
+<body>
+<h1>New <%=model%></h1>
+
+<%% form_tag :action=create %>
+<% local c %>
+<% local c_var=${model}_columns %>
+<% local t_var=${model}_columns_type %>
+<% local -a t_ary=(${!t_var}) %>
+<% local -i i=0 %>
+<% for c in ${!c_var}; do %>
+  <p><label for="current_item_<%=c%>"><%=c%></label><br/>
+  <% generate_input "$c" "${t_ary[$(( i++ ))]}" %></p>
+<% done %>
+
+  <%% submit_tag 'Create' %>
+
+<%% end_form_tag %>
+
+<%% link_to 'Back' :action=list %>
+
+</body>
+</html>

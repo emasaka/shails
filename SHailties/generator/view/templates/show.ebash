@@ -1,0 +1,18 @@
+<html>
+<head>
+<title><%=model%></title>
+</head>
+<body>
+
+<%% for column in $<%=model%>_columns; do %>
+  <%% var="current_item_${column}" %>
+  <p>
+    <b><%%=column%>:</b> <%% echo -n "${!var}" %>
+  </p>
+<%% done %>
+
+<%% link_to 'Edit' :action='edit' :id="$current_item_id" %> |
+<%% link_to 'Back' :action='list' %>
+
+</body>
+</html>

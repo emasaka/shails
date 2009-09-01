@@ -1,0 +1,34 @@
+<html>
+<head>
+<title><%=model%></title>
+</head>
+<body>
+<h1><%=model%></h1>
+
+<table border="1">
+<tr>
+<%% for column in $<%=model%>_columns; do %>
+  <th><%%=column%></th>
+<%% done %>
+</tr>
+
+<%% for item in $<%=model%>_list; do %>
+  <%% <%=model%>.bless item %>
+  <tr>
+<% local c %>
+<% local c_var=${model}_columns %>
+<% for c in ${!c_var}; do %>
+    <td><%%=item_<%=c%>%></td>
+<% done %>
+    <td><%% link_to 'edit' :action=edit :id="$item_id" %></td>
+    <td><%% link_to 'delete' :action=destroy :id="$item_id" %></td>
+  </tr>
+<%% done %>
+</table>
+
+<br />
+
+<%% link_to 'new' :action=new %>
+
+</body>
+</html>

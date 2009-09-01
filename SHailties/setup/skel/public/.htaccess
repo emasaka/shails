@@ -1,0 +1,9 @@
+Options +FollowSymLinks
+Options +ExecCGI
+AddHandler cgi-script .sh
+
+RewriteEngine On
+RewriteOptions Inherit
+RewriteBase /${project}
+
+RewriteRule ^(.*)$ dispatch.sh [QSA,L]

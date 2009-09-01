@@ -1,0 +1,5 @@
+#!/bin/bash
+
+SHAILS_DIR='/opt/shails'
+
+. ${SHAILS_DIR}/SHailties/setup/shails_setup "$1" "$SHAILS_DIR"

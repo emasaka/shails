@@ -1,0 +1,21 @@
+<html>
+<head>
+<title>Editing <%=model%></title>
+</head>
+<body>
+<h1>Editing <%=model%></h1>
+<%% form_tag :action=update :id="$current_item_id" %>
+<% local c %>
+<% local c_var=${model}_columns %>
+<% local t_var=${model}_columns_type %>
+<% local -a t_ary=(${!t_var}) %>
+<% local -i i=0 %>
+<% for c in ${!c_var}; do %>
+  <p><label for="current_item_<%=c%>"><%=c%></label><br/>
+  <% generate_input "$c" "${t_ary[$(( i++ ))]}" %></p>
+<% done %>
+  <%% submit_tag 'Edit' %>
+<%% end_form_tag %>
+
+<%% link_to 'Show' :action=show :id="$current_item_id" %> |
+<%% link_to 'Back' :action=list %>

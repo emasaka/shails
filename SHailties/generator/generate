@@ -1,0 +1,23 @@
+#!/bin/bash
+
+function generator::dispatch() {
+    if (( $# < 1 )); then generator.usage; fi
+    local cmd=$1
+    shift
+    generator.${cmd} "$@"
+}
+
+function generator::load_libs() {
+    local f
+    for f in vendor/SHailties/generator/*.sh; do
+        . $f
+    done
+}
+
+function generator.usage() {
+    echo "usage: $0 command ..."
+    exit 1
+}
+
+generator::load_libs
+generator::dispatch "$@"
