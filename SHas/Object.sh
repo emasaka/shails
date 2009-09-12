@@ -87,7 +87,7 @@ function search_functions() {
     local ptn=$1
     local func line
 
-    typeset -F | while read line; do
+    declare -F | while read line; do
         func=${line##* }
         [[ "$func" == ${ptn} ]] && echo $func
     done
