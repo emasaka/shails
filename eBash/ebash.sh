@@ -75,7 +75,7 @@ function ebash_template() {
     local c
     local IFS=''
 
-    while read c; do
+    while read -r c; do
         case "$status" in
         0)
 	    ebash::parse_normal "$c"

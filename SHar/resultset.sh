@@ -33,7 +33,7 @@ function resultset.resultarray() {
     local r_id rest_dat
 
     local IFS='|'
-    while read r_id rest_dat; do
+    while read -r r_id rest_dat; do
         string_push str " resultset/$table/$cacheid/$r_id"
     done < "$cachefile"
     echo "${str# }"
@@ -58,7 +58,7 @@ function resultset.bless() {
     local IFS='|'
     local r_id line v
     local -i i=0
-    while read r_id line; do
+    while read -r r_id line; do
         if [[ $r_id == $id ]]; then
             eval ${instance}_id=\"$r_id\"
             for v in $line; do

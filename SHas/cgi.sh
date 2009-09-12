@@ -9,7 +9,7 @@ function CGI.new() {
     if [[ -n "$CONTENT_LENGTH" ]]; then
 	local str
 	IFS=''
-	read -n "$CONTENT_LENGTH" str
+	read -r -n "$CONTENT_LENGTH" str
 
 	IFS='&'
 	local -a ary=($str)
