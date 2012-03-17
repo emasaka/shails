@@ -12,6 +12,22 @@ For example, in Linux:
 2. tar xvf /path/to/shails-20080401.tar.gz
 3. ln -s /opt/shails/bin/shails ~/bin
 
+== Sample Operation
+
+$ shails meibo
+$ cd meibo
+$ script/generate model members name:string comment:text
+$ make db-migrate
+$ script/generate scaffold members
+
+- edit httpd configuration file
+
+    Alias /meibo /path/to/meibo/public
+    <Directory /path/to/meibo/public>
+        AllowOverride All
+    </Directory>
+
+- restart httpd
 
 == License
 
